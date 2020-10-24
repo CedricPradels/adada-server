@@ -1,4 +1,3 @@
-import "module-alias/register";
-import {startExpress} from "config"; 
+import { startExpress } from './config/index';
 
 startExpress();

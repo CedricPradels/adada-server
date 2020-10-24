@@ -1,7 +1,7 @@
-import dotenv from "dotenv"; 
+import { config } from 'dotenv';
 
-dotenv.config();
+config();
 
 export const constants = {
-    port: process.env.PORT || 4000,
-}
+  port: process.env.PORT || 4000,
+};
