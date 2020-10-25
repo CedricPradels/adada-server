@@ -23,10 +23,13 @@
     - [x] add configuration to package.json 
     - [x] setup 1 test
 - Deploy
-  - [ ] : heroku, issue with puppeteer
+  - [ ] : heroku
+    - [x] without puppeteer 
+    - [ ] issue with puppeteer
 - Issues
   - [ ] Prettier doesn't format non elsinted files : json, md, ...
   - [ ] Typescript path aliases with module-alias does not work after build
+  - [ ] Clean github project (dist, yarn errors, ...)
 
 ## Backlog
 

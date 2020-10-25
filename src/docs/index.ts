@@ -12,7 +12,10 @@ const apiDoc: OpenAPIV3.Document = {
   },
   servers: [
     { url: 'localhost:4000', description: 'Development server.' },
-    { url: 'unknown', description: 'Production server.' },
+    {
+      url: 'https://adada-server.herokuapp.com',
+      description: 'Production server.',
+    },
   ],
   paths: {
     '/api-doc': {
