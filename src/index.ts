@@ -1,3 +1,3 @@
 import { startExpress } from './config/index';
 
-startExpress();
+export const app = startExpress();

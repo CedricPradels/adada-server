@@ -13,4 +13,6 @@ export const startExpress = (app = express(), router = appRouter) => {
   app.listen(constants.port, () => {
     console.log(`Server's listening at 127.0.0.1:${constants.port}`);
   });
+
+  return app;
 };

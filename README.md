@@ -18,9 +18,10 @@
     - [x] create oas3.json skeleton
     - [x] add route for doc
 - Setup unit tests environment
-    - [ ] add and setup jest
-    - [ ] add configuration to package.json 
-    - [ ] setup 1 test
+    - [x] add and setup jest
+    - [x] setup watch 
+    - [x] add configuration to package.json 
+    - [x] setup 1 test
 - Deploy
   - [ ] : heroku, issue with puppeteer
 - Issues
