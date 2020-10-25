@@ -1,5 +1,10 @@
 import { Router } from 'express';
 
+import swaggerUIExpress from 'swagger-ui-express';
+import apiDoc from '../docs';
+
 export const router = Router();
 
-router.get('/', () => console.log('Test'));
+router.use(swaggerUIExpress.serve);
+
+router.get('/api-doc', swaggerUIExpress.setup(apiDoc));

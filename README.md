@@ -15,8 +15,8 @@
     - [x] setup package.json
     - [x] setup dev env : nodemon and ts-node
 - Setup documentation 
-    - [ ] create oas3.json skeleton
-    - [ ] add route for doc
+    - [x] create oas3.json skeleton
+    - [x] add route for doc
 - Setup unit tests environment
     - [ ] add and setup jest
     - [ ] add configuration to package.json 

@@ -1,4 +1,5 @@
 node_modules
 yarn.lock
 .env
-lib
+dist
+yarn-error.log
