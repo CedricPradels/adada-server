@@ -9,10 +9,6 @@
 - Luxon
 
 ## Current Sprint
-### Sprint 1
-- [ ] Add routes definition in api doc
-  - [ ] races
-  - [ ] ... with filters : date, participants count, discipline
 
 ## Backlog
 
@@ -50,3 +46,8 @@
     - [x] issue with puppeteer
 - Issues
   - [x] Clean github project (dist, yarn errors, ...)
+
+### Sprint 1
+- [x] Add routes definition in api doc
+  - [x] races
+  - [x] ... with filters : date, participants count, discipline

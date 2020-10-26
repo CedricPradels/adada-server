@@ -14,7 +14,7 @@ export const router = Router();
 
 router.use(swaggerUIExpress.serve);
 
-router.get('/api-doc', swaggerUIExpress.setup(apiDoc));
+router.get('/doc', swaggerUIExpress.setup(apiDoc));
 
 router.get('/test', async (req, res) => {
   const browser = await openBrowser();
