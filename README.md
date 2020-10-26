@@ -9,6 +9,28 @@
 - Luxon
 
 ## Current Sprint
+### Sprint 1
+- [ ] Add routes definition in api doc
+  - [ ] races
+  - [ ] ... with filters : date, participants count, discipline
+
+## Backlog
+
+## Notes
+- Use GraphQL ?
+- Use persistent storage ?
+- Add jsdoc for function code description (typescript improvement)
+- setup CI ?
+- what about webpack ? 
+- what about docker ? 
+
+## Issues
+  - [ ] Prettier doesn't format non elsinted files : json, md, ...
+  - [ ] Typescript path aliases with module-alias does not work after build
+
+## Ended sprints
+
+### Sprint 0
 - Setup project 
     - [x] setup eslint and prettier
     - [x] setup typescript compiler
@@ -27,16 +49,4 @@
     - [x] without puppeteer 
     - [x] issue with puppeteer
 - Issues
-  - [ ] Prettier doesn't format non elsinted files : json, md, ...
-  - [ ] Typescript path aliases with module-alias does not work after build
   - [x] Clean github project (dist, yarn errors, ...)
-
-## Backlog
-
-## Notes
-- Use GraphQL ?
-- Use persistent storage ?
-- Add jsdoc for function code description (typescript improvement)
-- setup CI ?
-- what about webpack ? 
-- what about docker ? 
