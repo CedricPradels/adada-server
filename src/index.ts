@@ -1,4 +1,5 @@
-import { startExpress, startDBConnection } from './config/index';
+import { startExpress, startDBConnection, startAgenda } from './config/index';
 
 startDBConnection();
+startAgenda();
 startExpress();

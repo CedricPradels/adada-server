@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { router as appRouter } from '../../routes';
-import { constants } from '../../config/constants';
+import { router as appRouter } from '../routes';
+import { constants } from '../config/constants';
 
 export const startExpress = (app = express(), router = appRouter) => {
   app.use('/', router);

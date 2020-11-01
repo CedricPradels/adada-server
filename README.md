@@ -20,7 +20,9 @@
 - [ ] Setup DB
 - [ ] Setup online DB
 - [ ] Add models for races
-- [ ] Add agendajs to update races data
+- [x] Setup agenda (crontab like) 
+- [ ] Add races update to agenda
+- [x] Add auto wakeup to agenda
 
 
 ## Backlog
@@ -36,6 +38,13 @@
 ## Issues
   - [ ] Prettier doesn't format non elsinted files : json, md, ...
   - [ ] Typescript path aliases with module-alias does not work after build
+
+## Terminologies
+- *Meeting*: ok
+- *Race*: ok
+- *Runners*: to be confirmed
+- *Allocation*: to be confirmed
+- *Discipline*: to be confirmed
 
 ## Ended sprints
 

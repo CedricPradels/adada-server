@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { constants } from '../constants';
+import { constants } from './constants';
 
 export const startDBConnection = () => {
   mongoose

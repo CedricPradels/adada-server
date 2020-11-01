@@ -1,7 +1,6 @@
-import { query, Router } from 'express';
+import { Router } from 'express';
 import swaggerUIExpress from 'swagger-ui-express';
 import { DateTime } from 'luxon';
-import { RaceModel } from '../models';
 
 import {
   openBrowser,
