@@ -1,3 +1,4 @@
-import { startExpress } from './config/index';
+import { startExpress, startDBConnection } from './config/index';
 
-export const app = startExpress();
+startDBConnection();
+startExpress();

@@ -1,6 +1,8 @@
-import { Router } from 'express';
-
+import { query, Router } from 'express';
+import swaggerUIExpress from 'swagger-ui-express';
 import { DateTime } from 'luxon';
+import { RaceModel } from '../models';
+
 import {
   openBrowser,
   closeBrowser,
@@ -15,7 +17,6 @@ import {
   getMeetingName,
   getMeetingNumber,
 } from '../utils/scrapping';
-import swaggerUIExpress from 'swagger-ui-express';
 import apiDoc from '../docs';
 
 export const router = Router();
@@ -24,8 +25,9 @@ router.use(swaggerUIExpress.serve);
 
 router.get('/doc', swaggerUIExpress.setup(apiDoc));
 
-router.get('/test', async (req, res) => {
-  // GET QUERY
+router.get('/test', (res, req) => req.status(200).json({ message: 'test' }));
+
+router.get('/races', async (req, res) => {
   const date = DateTime.fromObject({ zone: 'Europe/Paris' }).toFormat(
     'ddMMyyyy'
   );
