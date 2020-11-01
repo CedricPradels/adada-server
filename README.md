@@ -15,7 +15,7 @@
 - [ ] get multiple filters from request
 - [ ] filter races
 - [ ] test
-- [ ] write contributing
+- [x] write contributing
 - [ ] Unifying terminologies
 - [ ] Setup DB
 - [ ] Setup online DB
