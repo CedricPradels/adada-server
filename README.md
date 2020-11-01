@@ -9,6 +9,19 @@
 - Luxon
 
 ## Current Sprint
+### Sprint 2
+- [x] get day races
+- [x] extract data from races
+- [ ] get multiple filters from request
+- [ ] filter races
+- [ ] test
+- [ ] write contributing
+- [ ] Unifying terminologies
+- [ ] Setup DB
+- [ ] Setup online DB
+- [ ] Add models for races
+- [ ] Add agendajs to update races data
+
 
 ## Backlog
 
