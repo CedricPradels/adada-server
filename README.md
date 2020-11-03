@@ -17,11 +17,11 @@
 - [ ] test
 - [x] write contributing
 - [ ] Unifying terminologies
-- [ ] Setup DB
+- [x] Setup DB
 - [ ] Setup online DB
-- [ ] Add models for races
+- [x] Add models for races
 - [x] Setup agenda (crontab like) 
-- [ ] Add races update to agenda
+- [x] Add races update to agenda (care geographic zones)
 - [x] Add auto wakeup to agenda
 
 

@@ -1,7 +1,7 @@
 import Agenda from 'agenda';
-import axios from 'axios';
 
-import { constants } from './constants';
+import { constants } from '../constants';
+import { selfWakeUp, updateRaces } from './handlers';
 
 const agenda = new Agenda({
   db: {
@@ -15,22 +15,17 @@ const agenda = new Agenda({
 
 const actions = {
   autoWakeUp: 'Wakeup server',
+  updateRaces: 'Update or create races',
 };
 
-const selfWakeup = async () => {
-  try {
-    axios.get(`${constants.serverURL}/test`);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-agenda.define(actions.autoWakeUp, selfWakeup);
+agenda.define(actions.autoWakeUp, selfWakeUp);
+agenda.define(actions.updateRaces, updateRaces);
 
 export const startAgenda = () => {
   (async () => {
     await agenda.start();
     await agenda.every('*/10 * * * *', actions.autoWakeUp);
+    await agenda.every('* * * * *', actions.updateRaces);
   })();
 
   console.log('Agenda started');

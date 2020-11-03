@@ -1,4 +1,7 @@
 import puppeteer, { Browser, LaunchOptions, Page } from 'puppeteer';
+import { DateTime } from 'luxon';
+
+import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
   const herokuOption: LaunchOptions = { args: ['--no-sandbox'] };
@@ -21,7 +24,10 @@ export const closePage = async (page: Page) => {
 
 export const getRacesURL = async (isoDate: string, page: Page) => {
   const baseUrl = 'https://www.pmu.fr/turf';
-  const url = `${baseUrl}/${isoDate}`;
+  const raceDate = DateTime.fromISO(isoDate, {
+    zone: constants.localZone,
+  }).toFormat('ddMMyyyy');
+  const url = `${baseUrl}/${raceDate}`;
 
   await page.goto(url, { waitUntil: 'networkidle0' });
 
