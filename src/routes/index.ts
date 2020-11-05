@@ -2,21 +2,9 @@ import { Router } from 'express';
 import swaggerUIExpress from 'swagger-ui-express';
 import { DateTime } from 'luxon';
 
-import {
-  openBrowser,
-  closeBrowser,
-  openPage,
-  closePage,
-  getRacesURL,
-  getRunnersCount,
-  getAllocation,
-  getDiscipline,
-  getRaceName,
-  getRaceNumber,
-  getMeetingName,
-  getMeetingNumber,
-} from '../utils/scrapping';
+import { RaceModel } from '../models';
 import apiDoc from '../docs';
+import { constants } from '../config';
 
 export const router = Router();
 
@@ -27,39 +15,40 @@ router.get('/doc', swaggerUIExpress.setup(apiDoc));
 router.get('/test', (res, req) => req.status(200).json({ message: 'test' }));
 
 router.get('/races', async (req, res) => {
-  const date = DateTime.fromObject({ zone: 'Europe/Paris' }).toFormat(
-    'ddMMyyyy'
-  );
+  const {
+    date: queryDate,
+    maxRunners: queryMaxRunners,
+    minRunners: queryMinRunners,
+    minAllocation: queryMinAllocation,
+    maxAllocation: queryMaxAllocation,
+    disciplines: queryDisciplines,
+  } = req.query;
 
-  // SETUP BROWSER
-  const browser = await openBrowser();
-  const page = await openPage(browser);
+  const date = DateTime.fromISO(queryDate as string, {
+    zone: constants.localZone,
+  });
+  const dayStart = date.startOf('day').toISO();
+  const dayEnd = date.endOf('day').toISO();
 
-  // GET URL
-  const racesURL = await getRacesURL(date, page);
+  const maxRunners = Number(queryMaxRunners) || Number.MAX_VALUE;
+  const minRunners = Number(queryMinRunners) || 0;
 
-  const getRacesData = await racesURL.reduce(async (acc, url) => {
-    const $acc = await acc;
+  const maxAllocation = Number(queryMaxAllocation) || Number.MAX_VALUE;
+  const minAllocation = Number(queryMinAllocation) || 0;
 
-    await page.goto(url, { waitUntil: 'networkidle0' });
+  const disciplines =
+    (Array.isArray(queryDisciplines) && queryDisciplines) ||
+    (typeof queryDisciplines === 'string' && [queryDisciplines]) ||
+    [];
 
-    return [
-      ...$acc,
-      {
-        runnersCount: await getRunnersCount(page),
-        url,
-        allocation: await getAllocation(page),
-        discipline: await getDiscipline(page),
-        raceNumber: await getRaceNumber(page),
-        raceName: await getRaceName(page),
-        meetingNumber: await getMeetingNumber(page),
-        meetingName: await getMeetingName(page),
-      },
-    ];
-  }, [] as any);
+  const queryRace = await RaceModel.find({
+    date: { $lte: dayEnd, $gte: dayStart },
+    runnersCount: { $lte: maxRunners, $gte: minRunners },
+    allocation: { $lte: maxAllocation, $gte: minAllocation },
+    discipline: { $in: disciplines as string[] },
+  });
 
-  res.json({ data: getRacesData });
+  if (queryRace.length === 0) return res.status(204).send();
 
-  await closePage(page);
-  await closeBrowser(browser);
+  res.status(200).json(queryRace);
 });

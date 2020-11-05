@@ -73,7 +73,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'Discipline',
+            name: 'disciplines',
             description: 'Discipline of races',
             in: 'query',
             schema: {

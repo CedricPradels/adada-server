@@ -13,7 +13,7 @@
 - [x] get day races
 - [x] extract data from races
 - [ ] get multiple filters from request
-- [ ] filter races
+- [x] filter races
 - [ ] test
 - [x] write contributing
 - [ ] Unifying terminologies
