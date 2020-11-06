@@ -60,7 +60,7 @@ export const getRunnersCount = async (racePage: Page) => {
   return runnerCount;
 };
 
-export const getAllocation = async (racePage: Page) => {
+export const getRacePurse = async (racePage: Page) => {
   const headerData = await racePage.evaluate(
     () =>
       document.querySelector<HTMLElement>(
@@ -73,7 +73,7 @@ export const getAllocation = async (racePage: Page) => {
   return allocationString ? Number.parseInt(allocationString) : null;
 };
 
-export const getDiscipline = async (racePage: Page) => {
+export const getRaceType = async (racePage: Page) => {
   const discipline = await racePage.evaluate(() =>
     document
       .querySelector<HTMLElement>(

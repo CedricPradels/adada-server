@@ -39,7 +39,7 @@ const apiDoc: OpenAPIV3.Document = {
         summary: 'Races list',
         parameters: [
           {
-            name: 'Date',
+            name: 'date',
             description: 'Date of the day',
             in: 'query',
             schema: {
@@ -73,7 +73,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'disciplines',
+            name: 'types',
             description: 'Discipline of races',
             in: 'query',
             schema: {
@@ -87,7 +87,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'minDotation',
+            name: 'minPurse',
             description: 'Minimum (include) races dotation.',
             in: 'query',
             schema: {
@@ -98,7 +98,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'maxDotation',
+            name: 'maxPurse',
             description: 'Maximum (include) races dotation.',
             in: 'query',
             schema: {
@@ -119,7 +119,7 @@ const apiDoc: OpenAPIV3.Document = {
                   items: {
                     type: 'object',
                     properties: {
-                      raceUrl: {
+                      url: {
                         type: 'string',
                         format: 'date',
                         example: '2020-10-28',
@@ -153,13 +153,13 @@ const apiDoc: OpenAPIV3.Document = {
                         example: 16,
                       },
 
-                      dotaton: {
+                      purse: {
                         type: 'number',
                         format: 'int32',
                         example: 32000,
                       },
 
-                      discipline: {
+                      type: {
                         type: 'string',
                         enum: ['attele', 'plat', 'monte', 'obstacle'],
                         example: 'attele',

@@ -19,9 +19,9 @@ router.get('/races', async (req, res) => {
     date: queryDate,
     maxRunners: queryMaxRunners,
     minRunners: queryMinRunners,
-    minAllocation: queryMinAllocation,
-    maxAllocation: queryMaxAllocation,
-    disciplines: queryDisciplines,
+    minPurse: queryMinPurse,
+    maxPurse: queryMaxPurse,
+    types: queryTypes,
   } = req.query;
 
   const date = DateTime.fromISO(queryDate as string, {
@@ -33,19 +33,19 @@ router.get('/races', async (req, res) => {
   const maxRunners = Number(queryMaxRunners) || Number.MAX_VALUE;
   const minRunners = Number(queryMinRunners) || 0;
 
-  const maxAllocation = Number(queryMaxAllocation) || Number.MAX_VALUE;
-  const minAllocation = Number(queryMinAllocation) || 0;
+  const maxPurse = Number(queryMaxPurse) || Number.MAX_VALUE;
+  const minPurse = Number(queryMinPurse) || 0;
 
-  const disciplines =
-    (Array.isArray(queryDisciplines) && queryDisciplines) ||
-    (typeof queryDisciplines === 'string' && [queryDisciplines]) ||
+  const types =
+    (Array.isArray(queryTypes) && queryTypes) ||
+    (typeof queryTypes === 'string' && [queryTypes]) ||
     [];
 
   const queryRace = await RaceModel.find({
     date: { $lte: dayEnd, $gte: dayStart },
     runnersCount: { $lte: maxRunners, $gte: minRunners },
-    allocation: { $lte: maxAllocation, $gte: minAllocation },
-    discipline: { $in: disciplines as string[] },
+    purse: { $lte: maxPurse, $gte: minPurse },
+    type: { $in: types as string[] },
   });
 
   if (queryRace.length === 0) return res.status(204).send();

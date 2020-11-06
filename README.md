@@ -16,7 +16,7 @@
 - [x] filter races
 - [ ] test
 - [x] write contributing
-- [ ] Unifying terminologies
+- [x] Unifying terminologies
 - [x] Setup DB
 - [ ] Setup online DB
 - [x] Add models for races
@@ -40,11 +40,11 @@
   - [ ] Typescript path aliases with module-alias does not work after build
 
 ## Terminologies
-- *Meeting*: ok
-- *Race*: ok
-- *Runners*: to be confirmed
-- *Allocation*: to be confirmed
-- *Discipline*: to be confirmed
+- *Meeting*: ok (Réunion)
+- *Race*: ok (Course)
+- *Runners*: ok (Partants)
+- *Purse*: ok (Allocation)
+- *Type*: ok (Discipline)
 
 ## Ended sprints
 

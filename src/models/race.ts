@@ -1,8 +1,8 @@
 import { model, Document, Schema } from 'mongoose';
 
 type DBRace = {
-  allocation: number | null;
-  discipline: string | null;
+  purse: number | null;
+  type: string | null;
   raceNumber: number | null;
   raceName: string | null;
   url: string;
@@ -13,8 +13,8 @@ type DBRace = {
 } & Document;
 
 const RaceSchema = new Schema<DBRace>({
-  allocation: { type: Number },
-  discipline: { type: String },
+  purse: { type: Number },
+  type: { type: String },
   raceNumber: { type: Number },
   date: { type: Date },
   raceName: { type: String },
