@@ -1,6 +1,7 @@
 import puppeteer, { Browser, LaunchOptions, Page } from 'puppeteer';
 import { DateTime } from 'luxon';
 
+import { PMURaceType, RaceType } from '../types';
 import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
@@ -68,20 +69,35 @@ export const getRacePurse = async (racePage: Page) => {
       )?.innerText
   );
 
-  const allocationString = headerData?.replace(/( |€)/g, '');
+  const purseString = headerData?.replace(/( |€)/g, '');
 
-  return allocationString ? Number.parseInt(allocationString) : null;
+  return purseString ? Number.parseInt(purseString) : null;
 };
 
 export const getRaceType = async (racePage: Page) => {
-  const discipline = await racePage.evaluate(() =>
+  const pMURaceType = await racePage.evaluate(() =>
     document
       .querySelector<HTMLElement>(
         '.course-infos-header-extras-main li:first-child strong'
       )
       ?.innerText.toLowerCase()
   );
-  return discipline || null;
+
+  if (!pMURaceType) return null;
+
+  const translateType = (frenchType: PMURaceType) => {
+    const translate: { [K in PMURaceType]: RaceType } = {
+      'Cross Country': 'national-hunt',
+      'Steeple Chase': 'steeple-chase',
+      Attelé: 'harness',
+      Monté: 'saddle',
+      Haies: 'hurdle',
+      Plat: 'flat',
+    };
+    return translate[frenchType];
+  };
+
+  return translateType(pMURaceType as PMURaceType);
 };
 
 export const getRaceName = async (racePage: Page) => {

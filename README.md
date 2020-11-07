@@ -11,20 +11,6 @@
 - Agenda
 
 ## Current Sprint
-### Sprint 2
-- [x] get day races
-- [x] extract data from races
-- [x] get multiple filters and sanitize from request
-- [x] filter races
-- [x] write contributing
-- [x] Unifying terminologies
-- [x] Setup DB
-- [x] Setup online DB
-- [x] Add models for races
-- [x] Setup agenda (crontab like) 
-- [x] Add races update to agenda (care geographic zones)
-- [x] Add auto wakeup to agenda
-- [x] Add config to express: cors, helmet, json
 
 ## Backlog
 - [ ] test
@@ -76,3 +62,18 @@
 - [x] Add routes definition in api doc
   - [x] races
   - [x] ... with filters : date, participants count, discipline
+
+### Sprint 2
+- [x] get day races
+- [x] extract data from races
+- [x] get multiple filters and sanitize from request
+- [x] filter races
+- [x] write contributing
+- [x] Unifying terminologies
+- [x] Setup DB
+- [x] Setup online DB
+- [x] Add models for races
+- [x] Setup agenda (crontab like) 
+- [x] Add races update to agenda (care geographic zones)
+- [x] Add auto wakeup to agenda
+- [x] Add config to express: cors, helmet, json

@@ -1,8 +1,10 @@
 import { model, Document, Schema } from 'mongoose';
 
+import { RaceType, allRacesTypes } from '../types';
+
 type DBRace = {
   purse: number | null;
-  type: string | null;
+  type: RaceType | null;
   raceNumber: number | null;
   raceName: string | null;
   url: string;
@@ -14,7 +16,7 @@ type DBRace = {
 
 const RaceSchema = new Schema<DBRace>({
   purse: { type: Number },
-  type: { type: String },
+  type: { type: String, enum: allRacesTypes },
   raceNumber: { type: Number },
   date: { type: Date },
   raceName: { type: String },
