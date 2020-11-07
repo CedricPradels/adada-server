@@ -5,7 +5,7 @@ const apiDoc: OpenAPIV3.Document = {
 
   info: {
     title: 'Adada API',
-    description: 'Give API that scrap data for horse races.',
+    description: `Give API that scrap data for horse races.`,
     contact: {
       name: 'Cédric Pradels',
     },
@@ -13,16 +13,18 @@ const apiDoc: OpenAPIV3.Document = {
   },
 
   servers: [
-    { url: 'localhost:4000', description: 'Development server.' },
+    { url: 'localhost:4000', description: 'Development' },
     {
       url: 'https://adada-server.herokuapp.com',
-      description: 'Production server.',
+      description: 'Production',
     },
   ],
 
   paths: {
     '/api/doc': {
       get: {
+        tags: ['Documentation'],
+        summary: 'API documentation',
         responses: {
           200: {
             description: 'Documentation interface of the API',
@@ -33,9 +35,11 @@ const apiDoc: OpenAPIV3.Document = {
 
     '/api/races': {
       get: {
+        tags: ['Races'],
+        summary: 'Races list',
         parameters: [
           {
-            name: 'Date',
+            name: 'date',
             description: 'Date of the day',
             in: 'query',
             schema: {
@@ -69,7 +73,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'Discipline',
+            name: 'types',
             description: 'Discipline of races',
             in: 'query',
             schema: {
@@ -83,7 +87,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'minDotation',
+            name: 'minPurse',
             description: 'Minimum (include) races dotation.',
             in: 'query',
             schema: {
@@ -94,7 +98,7 @@ const apiDoc: OpenAPIV3.Document = {
           },
 
           {
-            name: 'maxDotation',
+            name: 'maxPurse',
             description: 'Maximum (include) races dotation.',
             in: 'query',
             schema: {
@@ -115,39 +119,72 @@ const apiDoc: OpenAPIV3.Document = {
                   items: {
                     type: 'object',
                     properties: {
+                      url: {
+                        type: 'string',
+                        format: 'date',
+                        example: '2020-10-28',
+                      },
+
                       meetingNumber: {
                         type: 'number',
                         format: 'int32',
+                        example: 1,
                       },
+
                       meetingName: {
-                        type: 'number',
-                        format: 'int32',
+                        type: 'string',
+                        example: 'Vincennes',
                       },
+
                       raceNumber: {
                         type: 'number',
                         format: 'int32',
+                        example: 4,
                       },
+
                       raceName: {
+                        type: 'string',
+                        example: 'Prix du bar du coin',
+                      },
+
+                      runnersCount: {
                         type: 'number',
                         format: 'int32',
+                        example: 16,
                       },
-                      runners: {
-                        type: 'object',
-                        properties: {
-                          count: {
-                            type: 'number',
-                            format: 'int32',
-                          },
-                        },
-                      },
-                      dotaton: {
+
+                      purse: {
                         type: 'number',
                         format: 'int32',
+                        example: 32000,
                       },
-                      discipline: {
+
+                      type: {
                         type: 'string',
                         enum: ['attele', 'plat', 'monte', 'obstacle'],
+                        example: 'attele',
                       },
+                    },
+                  },
+                },
+              },
+            },
+          },
+
+          204: {
+            description: 'No race found',
+          },
+
+          400: {
+            description: 'Wrong parameter',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'Wrong date parameter',
                     },
                   },
                 },
