@@ -2,19 +2,19 @@
 
 ## Stack
 - Express
+- Express validator
 - Puppeteer
 - Eslint/prettier
 - Swagger/OAS3
 - Typescript
 - Luxon
+- Agenda
 
 ## Current Sprint
-### Sprint 1
-- [ ] Add routes definition in api doc
-  - [ ] races
-  - [ ] ... with filters : date, participants count, discipline
 
 ## Backlog
+- [ ] test
+- [ ] Research : how to improve use of try...catch
 
 ## Notes
 - Use GraphQL ?
@@ -27,6 +27,13 @@
 ## Issues
   - [ ] Prettier doesn't format non elsinted files : json, md, ...
   - [ ] Typescript path aliases with module-alias does not work after build
+
+## Terminologies
+- *Meeting*: ok (Réunion)
+- *Race*: ok (Course)
+- *Runners*: ok (Partants)
+- *Purse*: ok (Allocation)
+- *Type*: ok (Discipline)
 
 ## Ended sprints
 
@@ -50,3 +57,23 @@
     - [x] issue with puppeteer
 - Issues
   - [x] Clean github project (dist, yarn errors, ...)
+
+### Sprint 1
+- [x] Add routes definition in api doc
+  - [x] races
+  - [x] ... with filters : date, participants count, discipline
+
+### Sprint 2
+- [x] get day races
+- [x] extract data from races
+- [x] get multiple filters and sanitize from request
+- [x] filter races
+- [x] write contributing
+- [x] Unifying terminologies
+- [x] Setup DB
+- [x] Setup online DB
+- [x] Add models for races
+- [x] Setup agenda (crontab like) 
+- [x] Add races update to agenda (care geographic zones)
+- [x] Add auto wakeup to agenda
+- [x] Add config to express: cors, helmet, json
