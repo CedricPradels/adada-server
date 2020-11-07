@@ -1,6 +1,7 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import swaggerUIExpress from 'swagger-ui-express';
 import { DateTime } from 'luxon';
+import { query, validationResult, oneOf } from 'express-validator';
 
 import { RaceModel } from '../models';
 import apiDoc from '../docs';
@@ -14,41 +15,64 @@ router.get('/doc', swaggerUIExpress.setup(apiDoc));
 
 router.get('/test', (res, req) => req.status(200).json({ message: 'test' }));
 
-router.get('/races', async (req, res) => {
-  const {
-    date: queryDate,
-    maxRunners: queryMaxRunners,
-    minRunners: queryMinRunners,
-    minPurse: queryMinPurse,
-    maxPurse: queryMaxPurse,
-    types: queryTypes,
-  } = req.query;
+type RacesRequest = Request & {
+  query: {
+    date: string;
+    minRunners?: number;
+    maxRunners?: number;
+    minPurse?: number;
+    maxPurse?: number;
+    types?: string[];
+  };
+};
 
-  const date = DateTime.fromISO(queryDate as string, {
-    zone: constants.localZone,
-  });
-  const dayStart = date.startOf('day').toISO();
-  const dayEnd = date.endOf('day').toISO();
+router.get(
+  '/races',
+  [
+    query('date').isISO8601(),
+    query('maxRunners').optional().isNumeric().toInt(10),
+    query('minRunners').optional().isNumeric().toInt(10),
+    query('minPurse').optional().isNumeric().toInt(10),
+    query('maxPurse').optional().isNumeric().toInt(10),
+    oneOf([
+      query('types.*').optional().isIn(['attelé', 'plat', 'obstacle']),
+      query('types').optional().isIn(['attelé', 'plat', 'obstacle']).toArray(),
+    ]),
+  ],
+  async (req: RacesRequest, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  const maxRunners = Number(queryMaxRunners) || Number.MAX_VALUE;
-  const minRunners = Number(queryMinRunners) || 0;
+    const {
+      date: queryDate,
+      maxRunners,
+      minRunners,
+      minPurse,
+      maxPurse,
+      types,
+    } = req.query;
 
-  const maxPurse = Number(queryMaxPurse) || Number.MAX_VALUE;
-  const minPurse = Number(queryMinPurse) || 0;
+    const date = DateTime.fromISO(queryDate, {
+      zone: constants.localZone,
+    });
+    const dayStart = date.startOf('day').toISO();
+    const dayEnd = date.endOf('day').toISO();
 
-  const types =
-    (Array.isArray(queryTypes) && queryTypes) ||
-    (typeof queryTypes === 'string' && [queryTypes]) ||
-    [];
+    const conditions = {
+      date: { $lte: dayEnd, $gte: dayStart },
+      ...(minRunners ? { runnersCount: { $gte: minRunners } } : {}),
+      ...(maxRunners ? { runnersCount: { $lte: maxRunners } } : {}),
+      ...(minPurse ? { purse: { $gte: minPurse } } : {}),
+      ...(maxPurse ? { purse: { $lte: maxPurse } } : {}),
+      ...(types && types.length > 0 ? { type: { $in: types } } : {}),
+    };
 
-  const queryRace = await RaceModel.find({
-    date: { $lte: dayEnd, $gte: dayStart },
-    runnersCount: { $lte: maxRunners, $gte: minRunners },
-    purse: { $lte: maxPurse, $gte: minPurse },
-    type: { $in: types as string[] },
-  });
+    const queryRace = await RaceModel.find(conditions);
 
-  if (queryRace.length === 0) return res.status(204).send();
+    if (queryRace.length === 0) return res.status(204).send();
 
-  res.status(200).json(queryRace);
-});
+    res.status(200).json(queryRace);
+  }
+);

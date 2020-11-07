@@ -1,9 +1,15 @@
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
 
 import { router as appRouter } from '../routes';
 import { constants } from '../config/constants';
 
 export const startExpress = (app = express(), router = appRouter) => {
+  app.use(helmet());
+  app.use(cors());
+  app.use(express.json());
+
   app.use('/', router);
 
   app.all('*', (_, res) => {

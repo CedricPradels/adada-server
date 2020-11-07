@@ -2,30 +2,33 @@
 
 ## Stack
 - Express
+- Express validator
 - Puppeteer
 - Eslint/prettier
 - Swagger/OAS3
 - Typescript
 - Luxon
+- Agenda
 
 ## Current Sprint
 ### Sprint 2
 - [x] get day races
 - [x] extract data from races
-- [ ] get multiple filters from request
+- [x] get multiple filters and sanitize from request
 - [x] filter races
-- [ ] test
 - [x] write contributing
 - [x] Unifying terminologies
 - [x] Setup DB
-- [ ] Setup online DB
+- [x] Setup online DB
 - [x] Add models for races
 - [x] Setup agenda (crontab like) 
 - [x] Add races update to agenda (care geographic zones)
 - [x] Add auto wakeup to agenda
-
+- [x] Add config to express: cors, helmet, json
 
 ## Backlog
+- [ ] test
+- [ ] Research : how to improve use of try...catch
 
 ## Notes
 - Use GraphQL ?

@@ -1,5 +1,9 @@
 import { startExpress, startDBConnection, startAgenda } from './config/index';
 
-startDBConnection();
-startAgenda();
-startExpress();
+export const app = () => {
+  startDBConnection();
+  startAgenda();
+  startExpress();
+};
+
+app();
