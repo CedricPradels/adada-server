@@ -1,5 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
+import { allRacesTypes } from '../types';
+
 const apiDoc: OpenAPIV3.Document = {
   openapi: '3.0.3',
 
@@ -80,9 +82,9 @@ const apiDoc: OpenAPIV3.Document = {
               type: 'array',
               items: {
                 type: 'string',
-                enum: ['attele', 'plat', 'monte', 'obstacle'],
+                enum: allRacesTypes,
               },
-              example: ['attele', 'plat'],
+              example: ['flat', 'steeple-chase'],
             },
           },
 
@@ -161,8 +163,8 @@ const apiDoc: OpenAPIV3.Document = {
 
                       type: {
                         type: 'string',
-                        enum: ['attele', 'plat', 'monte', 'obstacle'],
-                        example: 'attele',
+                        enum: allRacesTypes,
+                        example: 'flat',
                       },
                     },
                   },

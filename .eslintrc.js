@@ -11,6 +11,14 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'prettier'],
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
+      },
+    },
+  ],
 
   rules: {
     'prettier/prettier': 'error',

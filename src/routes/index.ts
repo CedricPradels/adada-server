@@ -6,6 +6,7 @@ import { query, validationResult, oneOf } from 'express-validator';
 import { RaceModel } from '../models';
 import apiDoc from '../docs';
 import { constants } from '../config';
+import { RaceType, allRacesTypes } from '../types';
 
 export const router = Router();
 
@@ -22,7 +23,7 @@ type RacesRequest = Request & {
     maxRunners?: number;
     minPurse?: number;
     maxPurse?: number;
-    types?: string[];
+    types?: RaceType[];
   };
 };
 
@@ -35,8 +36,8 @@ router.get(
     query('minPurse').optional().isNumeric().toInt(10),
     query('maxPurse').optional().isNumeric().toInt(10),
     oneOf([
-      query('types.*').optional().isIn(['attelé', 'plat', 'obstacle']),
-      query('types').optional().isIn(['attelé', 'plat', 'obstacle']).toArray(),
+      query('types.*').optional().isIn(allRacesTypes),
+      query('types').optional().isIn(allRacesTypes).toArray(),
     ]),
   ],
   async (req: RacesRequest, res: Response) => {
