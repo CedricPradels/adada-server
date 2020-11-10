@@ -24,8 +24,8 @@ agenda.define(actions.updateRaces, updateRaces);
 export const startAgenda = () => {
   (async () => {
     await agenda.start();
-    await agenda.every('*/10 * * * *', actions.autoWakeUp);
     await agenda.every('* * * * *', actions.updateRaces);
+    await agenda.every('*/30 * * * *', actions.autoWakeUp);
   })();
 
   console.log('Agenda started');
