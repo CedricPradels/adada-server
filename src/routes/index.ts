@@ -41,39 +41,44 @@ router.get(
     ]),
   ],
   async (req: RacesRequest, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const {
+        date: queryDate,
+        maxRunners,
+        minRunners,
+        minPurse,
+        maxPurse,
+        types,
+      } = req.query;
+
+      const date = DateTime.fromISO(queryDate, {
+        zone: constants.localZone,
+      });
+      const dayStart = date.startOf('day').toISO();
+      const dayEnd = date.endOf('day').toISO();
+
+      const conditions = {
+        date: { $lte: dayEnd, $gte: dayStart },
+        ...(minRunners ? { runnersCount: { $gte: minRunners } } : {}),
+        ...(maxRunners ? { runnersCount: { $lte: maxRunners } } : {}),
+        ...(minPurse ? { purse: { $gte: minPurse } } : {}),
+        ...(maxPurse ? { purse: { $lte: maxPurse } } : {}),
+        ...(types && types.length > 0 ? { type: { $in: types } } : {}),
+      };
+
+      const queryRace = await RaceModel.find(conditions);
+
+      if (queryRace.length === 0) return res.status(204).send();
+
+      res.status(200).json(queryRace);
+    } catch (e) {
+      console.log(e);
+      res.json({ error: e });
     }
-
-    const {
-      date: queryDate,
-      maxRunners,
-      minRunners,
-      minPurse,
-      maxPurse,
-      types,
-    } = req.query;
-
-    const date = DateTime.fromISO(queryDate, {
-      zone: constants.localZone,
-    });
-    const dayStart = date.startOf('day').toISO();
-    const dayEnd = date.endOf('day').toISO();
-
-    const conditions = {
-      date: { $lte: dayEnd, $gte: dayStart },
-      ...(minRunners ? { runnersCount: { $gte: minRunners } } : {}),
-      ...(maxRunners ? { runnersCount: { $lte: maxRunners } } : {}),
-      ...(minPurse ? { purse: { $gte: minPurse } } : {}),
-      ...(maxPurse ? { purse: { $lte: maxPurse } } : {}),
-      ...(types && types.length > 0 ? { type: { $in: types } } : {}),
-    };
-
-    const queryRace = await RaceModel.find(conditions);
-
-    if (queryRace.length === 0) return res.status(204).send();
-
-    res.status(200).json(queryRace);
   }
 );

@@ -75,12 +75,11 @@ export const getRacePurse = async (racePage: Page) => {
 };
 
 export const getRaceType = async (racePage: Page) => {
-  const pMURaceType = await racePage.evaluate(() =>
-    document
-      .querySelector<HTMLElement>(
+  const pMURaceType = await racePage.evaluate(
+    () =>
+      document.querySelector<HTMLElement>(
         '.course-infos-header-extras-main li:first-child strong'
-      )
-      ?.innerText.toLowerCase()
+      )?.innerText
   );
 
   if (!pMURaceType) return null;
@@ -96,7 +95,6 @@ export const getRaceType = async (racePage: Page) => {
     };
     return translate[frenchType];
   };
-
   return translateType(pMURaceType as PMURaceType);
 };
 
