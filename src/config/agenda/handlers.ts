@@ -29,6 +29,7 @@ export const selfWakeUp = async () => {
 
 export const updateRaces = async () => {
   console.log('Update races');
+
   try {
     const today = DateTime.fromObject({ zone: constants.localZone });
 
@@ -48,15 +49,14 @@ export const updateRaces = async () => {
 
         await page.goto(race.url, { waitUntil: 'networkidle0' });
 
-        await race.updateOne({
-          runnersCount: await getRunnersCount(page),
-          purse: await getRacePurse(page),
-          type: await getRaceType(page),
-          raceNumber: await getRaceNumber(page),
-          raceName: await getRaceName(page),
-          meetingNumber: await getMeetingNumber(page),
-          meetingName: await getMeetingName(page),
-        });
+        race.runnersCount = await getRunnersCount(page);
+        race.purse = await getRacePurse(page);
+        race.type = await getRaceType(page);
+        race.raceNumber = await getRaceNumber(page);
+        race.raceName = await getRaceName(page);
+        race.meetingNumber = await getMeetingNumber(page);
+        race.meetingName = await getMeetingName(page);
+        await race.save();
       }, undefined as any);
     }
 
