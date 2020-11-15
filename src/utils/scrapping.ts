@@ -18,6 +18,7 @@ export const openBrowser = async () => {
   };
 
   const browser = await puppeteer.launch(launchOptions);
+  console.log(await browser.userAgent());
   return browser;
 };
 
@@ -54,14 +55,14 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
     )
   );
 
-  console.log(
-    await page.evaluate(() =>
-      Array.from(
-        document.querySelectorAll<HTMLBodyElement>('body'),
-        (body) => body.innerHTML
-      )
-    )
-  );
+  // console.log(
+  //   await page.evaluate(() =>
+  //     Array.from(
+  //       document.querySelectorAll<HTMLBodyElement>('body'),
+  //       (body) => body.innerHTML
+  //     )
+  //   )
+  // );
 
   const getTail = (href: string) =>
     href
