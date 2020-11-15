@@ -6,8 +6,16 @@ import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
   const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
-  const pmuArgs: LaunchOptions['args'] = ['--start-maximized'];
-  const launchOptions: LaunchOptions = { args: [...herokuArgs, ...pmuArgs] };
+  const pmuArgs: LaunchOptions['args'] = ['--start-fullscreen'];
+  const launchOptions: LaunchOptions = {
+    args: [...herokuArgs, ...pmuArgs],
+    defaultViewport: {
+      width: 2880,
+      height: 1800,
+      isMobile: false,
+      hasTouch: false,
+    },
+  };
 
   const browser = await puppeteer.launch(launchOptions);
   return browser;
@@ -17,7 +25,12 @@ export const closeBrowser = async (browser: Browser) => await browser.close();
 
 export const openPage = async (browser: Browser) => {
   const page = await browser.newPage();
-  await page.setViewport({ width: 2880, height: 1800 });
+  await page.setViewport({
+    width: 2880,
+    height: 1800,
+    isMobile: false,
+    hasTouch: false,
+  });
   return page;
 };
 
