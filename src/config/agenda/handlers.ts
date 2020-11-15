@@ -43,23 +43,6 @@ export const updateRaces = async () => {
       },
     });
 
-    if (queryRace.length > 0) {
-      await queryRace.reduce(async (acc, race) => {
-        await acc;
-
-        await page.goto(race.url, { waitUntil: 'networkidle0' });
-
-        race.runnersCount = await getRunnersCount(page);
-        race.purse = await getRacePurse(page);
-        race.type = await getRaceType(page);
-        race.raceNumber = await getRaceNumber(page);
-        race.raceName = await getRaceName(page);
-        race.meetingNumber = await getMeetingNumber(page);
-        race.meetingName = await getMeetingName(page);
-        await race.save();
-      }, undefined as any);
-    }
-
     if (queryRace.length === 0) {
       const racesURL = await getRacesURL(today.toISODate(), page);
 
@@ -81,6 +64,22 @@ export const updateRaces = async () => {
       }, undefined as any);
     }
 
+    if (queryRace.length > 0) {
+      await queryRace.reduce(async (acc, race) => {
+        await acc;
+
+        await page.goto(race.url, { waitUntil: 'networkidle0' });
+
+        race.runnersCount = await getRunnersCount(page);
+        race.purse = await getRacePurse(page);
+        race.type = await getRaceType(page);
+        race.raceNumber = await getRaceNumber(page);
+        race.raceName = await getRaceName(page);
+        race.meetingNumber = await getMeetingNumber(page);
+        race.meetingName = await getMeetingName(page);
+        await race.save();
+      }, undefined as any);
+    }
     await closePage(page);
     await closeBrowser(browser);
   } catch (e) {

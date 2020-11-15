@@ -5,8 +5,8 @@ import { PMURaceType, RaceType } from '../types';
 import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
-  const herokuOption: LaunchOptions = { args: ['--no-sandbox'] };
-  const launchOptions: LaunchOptions = { ...herokuOption };
+  const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
+  const launchOptions: LaunchOptions = { args: [...herokuArgs] };
 
   const browser = await puppeteer.launch(launchOptions);
   return browser;
@@ -36,6 +36,15 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
     Array.from(
       document.querySelectorAll<HTMLAnchorElement>('a.timeline-course-link'),
       (anchor) => anchor.href
+    )
+  );
+
+  console.log(
+    await page.evaluate(() =>
+      Array.from(
+        document.querySelectorAll<HTMLBodyElement>('body'),
+        (body) => body.innerHTML
+      )
     )
   );
 
