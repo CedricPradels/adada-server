@@ -34,9 +34,7 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   const url = `${baseUrl}/${raceDate}`;
 
   await page.setJavaScriptEnabled(true);
-  await page.setExtraHTTPHeaders({
-    accept: 'application/json, text/plain, */*',
-  });
+
   await page.goto(url, { waitUntil: 'networkidle0' });
 
   const racesHrefs = await page.evaluate(() =>

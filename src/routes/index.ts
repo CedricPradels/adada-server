@@ -15,6 +15,7 @@ router.use(swaggerUIExpress.serve);
 router.get('/doc', swaggerUIExpress.setup(apiDoc));
 
 router.get('/test', (req, res) => {
+  console.log(req.headers);
   res.status(200).json({ message: 'test' });
 });
 
