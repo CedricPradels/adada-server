@@ -6,15 +6,8 @@ import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
   const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
-  const pmuArgs: LaunchOptions['args'] = ['--start-fullscreen'];
   const launchOptions: LaunchOptions = {
-    args: [...herokuArgs, ...pmuArgs],
-    defaultViewport: {
-      width: 2880,
-      height: 1800,
-      isMobile: false,
-      hasTouch: false,
-    },
+    args: [...herokuArgs],
   };
 
   const browser = await puppeteer.launch(launchOptions);
@@ -25,16 +18,6 @@ export const closeBrowser = async (browser: Browser) => await browser.close();
 
 export const openPage = async (browser: Browser) => {
   const page = await browser.newPage();
-  await page.setViewport({
-    width: 2880,
-    height: 1800,
-    isMobile: false,
-    hasTouch: false,
-  });
-  page.setJavaScriptEnabled(true);
-  await page.setUserAgent(
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4272.0 Safari/537.36'
-  );
 
   return page;
 };
@@ -50,6 +33,7 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   }).toFormat('ddMMyyyy');
   const url = `${baseUrl}/${raceDate}`;
 
+  await page.setJavaScriptEnabled(true);
   await page.goto(url, { waitUntil: 'networkidle0' });
 
   const racesHrefs = await page.evaluate(() =>
@@ -58,6 +42,7 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
       (anchor) => anchor.href
     )
   );
+  console.log('hrefs: ', racesHrefs);
 
   const getTail = (href: string) =>
     href
