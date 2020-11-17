@@ -27,8 +27,6 @@ export const closePage = async (page: Page) => {
 };
 
 export const getRacesURL = async (isoDate: string, page: Page) => {
-  await page.goto(`${constants.serverURL}/test`, { waitUntil: 'networkidle0' });
-
   const baseUrl = 'https://www.pmu.fr/turf';
   const raceDate = DateTime.fromISO(isoDate, {
     zone: constants.localZone,
@@ -45,8 +43,8 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
       (anchor) => anchor.href
     )
   );
-  console.log('hrefs: ', racesHrefs);
 
+  console.log(await (page as any).isJavaScriptEnabled());
   const getTail = (href: string) =>
     href
       .split('/')
