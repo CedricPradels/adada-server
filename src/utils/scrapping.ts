@@ -1,4 +1,6 @@
-import puppeteer, { Browser, LaunchOptions, Page } from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import { Browser, LaunchOptions, Page } from 'puppeteer';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import randomUseragent from 'random-useragent';
 import { DateTime } from 'luxon';
 
@@ -12,7 +14,7 @@ export const openBrowser = async () => {
     args: [...herokuArgs],
   };
 
-  const browser = await puppeteer.launch(launchOptions);
+  const browser = await puppeteer.use(StealthPlugin()).launch(launchOptions);
   return browser;
 };
 
@@ -35,8 +37,11 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   }).toFormat('ddMMyyyy');
   const url = `${baseUrl}/${raceDate}`;
 
-  console.log(randomUseragent.getRandom());
-  await page.setUserAgent(randomUseragent.getRandom() || '');
+  const userAgent = randomUseragent.getRandom();
+  if (userAgent) {
+    await page.setUserAgent(userAgent);
+  }
+
   await page.setExtraHTTPHeaders({
     accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8',
   });

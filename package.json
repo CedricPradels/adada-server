@@ -15,6 +15,8 @@
     "luxon": "^1.25.0",
     "mongoose": "^5.10.11",
     "puppeteer": "^5.3.1",
+    "puppeteer-extra": "^3.1.15",
+    "puppeteer-extra-plugin-stealth": "^2.6.5",
     "random-useragent": "^0.5.0",
     "swagger-ui-express": "^4.1.4"
   },
