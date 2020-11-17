@@ -27,6 +27,8 @@ export const closePage = async (page: Page) => {
 };
 
 export const getRacesURL = async (isoDate: string, page: Page) => {
+  await page.goto(`${constants.serverURL}/test`, { waitUntil: 'networkidle0' });
+
   const baseUrl = 'https://www.pmu.fr/turf';
   const raceDate = DateTime.fromISO(isoDate, {
     zone: constants.localZone,
