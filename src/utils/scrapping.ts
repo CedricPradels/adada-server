@@ -1,4 +1,5 @@
 import puppeteer, { Browser, LaunchOptions, Page } from 'puppeteer';
+import randomUseragent from 'random-useragent';
 import { DateTime } from 'luxon';
 
 import { PMURaceType, RaceType } from '../types';
@@ -6,6 +7,7 @@ import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
   const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
+
   const launchOptions: LaunchOptions = {
     args: [...herokuArgs],
   };
@@ -33,7 +35,11 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   }).toFormat('ddMMyyyy');
   const url = `${baseUrl}/${raceDate}`;
 
-  await page.setJavaScriptEnabled(true);
+  console.log(randomUseragent.getRandom());
+  await page.setUserAgent(randomUseragent.getRandom() || '');
+  await page.setExtraHTTPHeaders({
+    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8',
+  });
 
   await page.goto(url, { waitUntil: 'networkidle0' });
 
@@ -44,7 +50,6 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
     )
   );
 
-  console.log(await (page as any).isJavaScriptEnabled());
   const getTail = (href: string) =>
     href
       .split('/')
