@@ -10,7 +10,7 @@ import { constants } from '../config/constants';
 export const openBrowser = async () => {
   const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
   const pmuArgs: LaunchOptions['args'] = [
-    '--proxy-server=http://10.10.10.10:8000',
+    // '--proxy-server=http://10.10.10.10:8000',
   ];
 
   const launchOptions: LaunchOptions = {
