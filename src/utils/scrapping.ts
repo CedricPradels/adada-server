@@ -43,6 +43,7 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
     await page.setUserAgent(userAgent);
   }
 
+  await page.setExtraHTTPHeaders({ connection: 'keep-alive' });
   await page.goto(url, { waitUntil: 'networkidle0' });
 
   const racesHrefs = await page.evaluate(() =>

@@ -54,7 +54,7 @@
   },
   "scripts": {
     "start": "node dist",
-    "build": "tsc -p tsconfig.prod.json",
+    "build": "npx tsc -p tsconfig.prod.json",
     "dev": "nodemon",
     "lint": "eslint --ext .ts,.js . --fix",
     "test": "jest --watchAll",
