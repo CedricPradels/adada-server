@@ -16,13 +16,6 @@
 - [ ] test
 - [ ] Research : how to improve use of try...catch
 
-## Notes
-- Use GraphQL ?
-- Use persistent storage ?
-- Add jsdoc for function code description (typescript improvement)
-- setup CI ?
-- what about webpack ? 
-- what about docker ? 
 
 ## Issues
   - [ ] Prettier doesn't format non elsinted files : json, md, ...
@@ -77,3 +70,14 @@
 - [x] Add races update to agenda (care geographic zones)
 - [x] Add auto wakeup to agenda
 - [x] Add config to express: cors, helmet, json
+
+## Notes
+- Use GraphQL ?
+- Use persistent storage ?
+- Add jsdoc for function code description (typescript improvement)
+- setup CI ?
+- what about webpack ? 
+- what about docker ? 
+- Remove test
+- Add precommit
+- Fix esling prettier on certain files md, json
