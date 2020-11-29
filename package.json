@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "15.2.x",
+    "npm": "6.14.x"
+  },
   "dependencies": {
     "@types/agenda": "^2.0.9",
     "agenda": "^3.1.0",
