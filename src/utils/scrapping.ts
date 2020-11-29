@@ -1,6 +1,4 @@
-import puppeteer from 'puppeteer-extra';
-import { Browser, LaunchOptions, Page } from 'puppeteer';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import puppeteer, { Browser, LaunchOptions, Page } from 'puppeteer';
 import randomUseragent from 'random-useragent';
 import { DateTime } from 'luxon';
 
@@ -17,7 +15,7 @@ export const openBrowser = async () => {
     args: [...herokuArgs, ...pmuArgs],
   };
 
-  const browser = await puppeteer.use(StealthPlugin()).launch(launchOptions);
+  const browser = await puppeteer.launch(launchOptions);
   return browser;
 };
 
