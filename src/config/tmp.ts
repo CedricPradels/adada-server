@@ -1,5 +1,3 @@
-import Axios from 'axios';
-import { constants } from '../config';
 import {
   openBrowser,
   openPage,
@@ -11,9 +9,24 @@ export const tmp = async () => {
   const browser = await openBrowser();
   const page = await openPage(browser);
 
-  await page.goto(`${constants.serverURL}/test`, { waitUntil: 'networkidle0' });
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
+  await getRacesURL('2020-11-30', page);
 
-  setInterval(() => getRacesURL('2020-11-29', page), 5000);
-
-  await closePage(page);
+  closePage(page);
 };

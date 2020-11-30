@@ -39,8 +39,8 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   }).toFormat('ddMMyyyy');
   const url = `${baseUrl}/${raceDate}`;
 
-  const userAgent = randomUseragent.getRandom();
-  console.log(userAgent);
+  const userAgent =
+    'Mozilla/5.0 (Linux; Android 4.0.4; BNTV400 Build/IMM76L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.111 Safari/537.36';
 
   if (userAgent) {
     await page.setUserAgent(userAgent);
