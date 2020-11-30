@@ -1,6 +1,0 @@
-{
-    "headers": {
-    "/**": {
-        "connection": "keep-alive"
-    }
-}
