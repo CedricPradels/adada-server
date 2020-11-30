@@ -10,7 +10,7 @@ export const tmp = async () => {
   await page.goto(`${constants.serverURL}/test`, { waitUntil: 'networkidle0' });
 
   Axios.get(`${constants.serverURL}/test`, {
-    headers: { connection: 'keep-alive' },
+    headers: { Connection: 'keep-alive' },
   });
 
   const urls = await getRacesURL('2020-11-29', page);
