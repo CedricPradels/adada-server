@@ -40,6 +40,8 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   const url = `${baseUrl}/${raceDate}`;
 
   const userAgent = randomUseragent.getRandom();
+  console.log(userAgent);
+
   if (userAgent) {
     await page.setUserAgent(userAgent);
   }
