@@ -62,6 +62,7 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
 
   const racesURL = racesHrefs.map(getTail).map(mergeWithUrl);
 
+  console.log('races URL', racesURL);
   return racesURL;
 };
 
