@@ -39,12 +39,24 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   }).toFormat('ddMMyyyy');
   const url = `${baseUrl}/${raceDate}`;
 
-  const userAgent =
-    'Mozilla/5.0 (Linux; Android 4.0.4; BNTV400 Build/IMM76L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.111 Safari/537.36';
+  const userAgent = randomUseragent.getRandom();
 
   if (userAgent) {
     await page.setUserAgent(userAgent);
   }
+
+  await page.setRequestInterception(true);
+  page.on('request', (request) => {
+    // Do nothing in case of non-navigation requests.
+    if (!request.isNavigationRequest()) {
+      request.continue();
+      return;
+    }
+    // Add a new header for navigation request.
+    const headers = request.headers();
+    headers.Connection = 'keep-alive';
+    request.continue({ headers });
+  });
 
   await page.goto(url, { waitUntil: 'networkidle0' });
 
@@ -65,6 +77,7 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   const racesURL = racesHrefs.map(getTail).map(mergeWithUrl);
 
   console.log('races URL', racesURL);
+
   return racesURL;
 };
 
