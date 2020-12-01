@@ -23,7 +23,12 @@ export const closeBrowser = async (browser: Browser) => await browser.close();
 
 export const openPage = async (browser: Browser) => {
   const page = await browser.newPage();
-  await page.setExtraHTTPHeaders({ Connection: 'keep-alive' });
+
+  const test = await page.setExtraHTTPHeaders({
+    Connection: 'keep-alive',
+    connection: 'keep-alive',
+  });
+  console.log(test);
 
   return page;
 };
@@ -44,12 +49,6 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   if (userAgent) {
     await page.setUserAgent(userAgent);
   }
-
-  const test = await page.setExtraHTTPHeaders({
-    Connection: 'keep-alive',
-    connection: 'keep-alive',
-  });
-  console.log(test);
 
   await page.goto(url, { waitUntil: 'networkidle0' });
 
