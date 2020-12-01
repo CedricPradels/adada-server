@@ -45,18 +45,11 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
     await page.setUserAgent(userAgent);
   }
 
-  await page.setRequestInterception(true);
-  page.on('request', (request) => {
-    // Do nothing in case of non-navigation requests.
-    if (!request.isNavigationRequest()) {
-      request.continue();
-      return;
-    }
-    // Add a new header for navigation request.
-    const headers = request.headers();
-    headers.Connection = 'keep-alive';
-    request.continue({ headers });
+  const test = await page.setExtraHTTPHeaders({
+    Connection: 'keep-alive',
+    connection: 'keep-alive',
   });
+  console.log(test);
 
   await page.goto(url, { waitUntil: 'networkidle0' });
 
