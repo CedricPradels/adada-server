@@ -19,7 +19,6 @@ export const tmp = async () => {
   await getRacesURL('2020-12-01', page);
   await getRacesURL('2020-12-01', page);
   await getRacesURL('2020-12-01', page);
-  await getRacesURL('2020-12-01', page);
 
   closePage(page);
 };

@@ -8,7 +8,7 @@ import { constants } from '../config/constants';
 export const openBrowser = async () => {
   const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
   const pmuArgs: LaunchOptions['args'] = [
-    // '--proxy-server=http://10.10.10.10:8000',
+    // '--proxy-server=134.209.222.174:3128',
   ];
 
   const launchOptions: LaunchOptions = {
@@ -24,12 +24,6 @@ export const closeBrowser = async (browser: Browser) => await browser.close();
 export const openPage = async (browser: Browser) => {
   const page = await browser.newPage();
 
-  const test = await page.setExtraHTTPHeaders({
-    Connection: 'keep-alive',
-    connection: 'keep-alive',
-  });
-  console.log(test);
-
   return page;
 };
 
@@ -42,7 +36,11 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
   const raceDate = DateTime.fromISO(isoDate, {
     zone: constants.localZone,
   }).toFormat('ddMMyyyy');
-  const url = `${baseUrl}/${raceDate}`;
+
+  const proxybotUrl = 'https://proxybot.io/api/v1';
+
+  const url = `${proxybotUrl}/${constants.proxybot.apiKey}?render_js=true&url=${baseUrl}/${raceDate}`;
+  // const url = `${baseUrl}/${raceDate}`;
 
   const userAgent = randomUseragent.getRandom();
 

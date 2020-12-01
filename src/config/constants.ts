@@ -9,4 +9,7 @@ export const constants = {
   mongDBURI: process.env.MONGODB_URI || 'mongodb://localhost:27017/adada',
   serverURL: process.env.SERVER_URL || `http://localhost:${PORT}`,
   localZone: 'Europe/Paris',
+  proxybot: {
+    apiKey: process.env.PROXYBOT_APIKEY || '',
+  },
 };
