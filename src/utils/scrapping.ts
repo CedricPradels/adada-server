@@ -6,7 +6,10 @@ import { PMURaceType, RaceType } from '../types';
 import { constants } from '../config/constants';
 
 export const openBrowser = async () => {
-  const herokuArgs: LaunchOptions['args'] = ['--no-sandbox'];
+  const herokuArgs: LaunchOptions['args'] = [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+  ];
   const pmuArgs: LaunchOptions['args'] = [
     // '--proxy-server=134.209.222.174:3128',
   ];
@@ -37,10 +40,10 @@ export const getRacesURL = async (isoDate: string, page: Page) => {
     zone: constants.localZone,
   }).toFormat('ddMMyyyy');
 
-  const proxybotUrl = 'https://proxybot.io/api/v1';
+  // const proxybotUrl = 'https://proxybot.io/api/v1';
 
-  const url = `${proxybotUrl}/${constants.proxybot.apiKey}?render_js=true&url=${baseUrl}/${raceDate}`;
-  // const url = `${baseUrl}/${raceDate}`;
+  // const url = `${proxybotUrl}/${constants.proxybot.apiKey}?render_js=true&url=${baseUrl}/${raceDate}`;
+  const url = `${baseUrl}/${raceDate}`;
 
   const userAgent = randomUseragent.getRandom();
 
